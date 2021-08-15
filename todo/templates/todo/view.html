@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if todolists %}
+
+    <ul>
+        {% for todolist in todolists %}
+        <li>
+            {{todolist.list_name}}
+            <ul>
+            {% for item in todoitems %}
+            {% if item.todo_list.id == todolist.id %}
+            <li>
+                {{item.title}}&nbsp:&nbsp{{item.checked}}&nbsp{{item.due_date}}
+            </li>
+            {% endif %}
+            {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% endif %}
+{% endblock %}

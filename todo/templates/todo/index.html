@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lists: </h2>
+    {% if todolists %}
+
+        
+        <table>
+            {% for todolist in todolists %}
+            <tr>
+                <th><a href="/todo/{{todolist.id}}">{{todolist.list_name}}</a></th>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    <br>
+    <a href="/todo/createlist/">Add list</a>
+{% endblock %}

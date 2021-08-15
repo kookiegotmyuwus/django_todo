@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{todolist.title}}</h1>
+
+    <form action="{% url 'todo:list_details' todolist.id %}" method="POST">
+        {% csrf_token %}
+        <fieldset>
+
+            <h1>{{todolist.list_name}}</h1><br>
+
+            List name: <input type="text" name="name" id="name" value={{todolist.list_name}}>
+            <br><br>
+
+            List items:<br><br>
+            <table>
+                <th>
+                {% for item in items_list %}
+                <br>
+            
+                <tr>
+                    <a href="/todo/{{todolist.id}}/{{item.id}}/">{{item.title}}</a>
+                    :{{item.due_date}},{{item.checked}}
+                </tr>
+            
+                {% endfor %}
+                </th>
+            </table>
+
+            <a href="/todo/createitem/" >Add item</a>
+
+            <br><br><br>
+            <input type="submit" name="update" value="Update">
+            <input type="submit" name="delete" value="Delete">
+
+        </fieldset>
+    </form>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="{% url 'todo:item_create' %}" method="POST">
+        {% csrf_token %}
+        <fieldset>
+
+            <h1>Create New Item</h1>
+            Item name: <input type="text" name="item" id="item">
+            <br><br>
+            Checked: <input type="checkbox" name="check" id="check" value=True><br><br>
+            Due Date:
+            &nbspTime: <input type="time" name="time" id="time"><br><br>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            Date: <input type="date" name="date" id="date"><br><br>
+            Todo List: <select name="todolist" id="todolist">
+                {% for todolist in todolists %}
+                    <option value={{todolist.id}}>{{todolist}}</option>
+                {% endfor %}
+            </select>
+
+            <br><br><br>
+            <input type="submit">
+
+        </fieldset>
+    </form>
+{% endblock %}

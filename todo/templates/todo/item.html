@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{todoitem.title}}</h2>
+
+    <form action="{% url 'todo:item_details' todolist.id todoitem.id %}" method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <br>
+            Item name: <input type="text" name="item" id="item" value={{todoitem.title}}>
+            </script>
+            <br><br>
+            {% if todoitem.checked == True %}
+            Checked: <input type="checkbox" name="check" id="check" value=True checked><br><br>
+            {% else %}
+            Checked: <input type="checkbox" name="check" id="check" value=True><br><br>
+            {% endif %}
+            Due Date:&nbsp{{todoitem.due_date}}<br><br>
+            Time:&nbsp<input type="time" name="time" id="time"><br><br>
+            Date:&nbsp<input type="date" name="date" id="date"><br><br>
+            Todo List: <select name="todolist" id="todolist">
+                {% for todo_list in todolists %}
+                    {% if todo_list.id == todolist.id %}
+                    <option value={{todo_list.id}} selected>{{todo_list}}</option>
+                    {% else %}
+                    <option value={{todo_list.id}}>{{todo_list}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <br><br><br>
+            <input type="submit" name="update" value="Update">
+            &nbsp;
+            <input type="submit" name="delete" value="Delete">
+
+        </fieldset>
+    </form>
+{% endblock %}
+
