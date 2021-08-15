@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404
 from django.template import loader
 import datetime
@@ -76,7 +76,7 @@ def detail(request,list_id):
         'todolists': todolists,
         'todoitems': items,
     }
-    return render(request, 'todo/index.html', context)
+    return redirect("/todo/")
 
 def createlist(request):
     if request.method == "GET":
@@ -88,13 +88,14 @@ def createlist(request):
     context = {
         'todolists': lists,
     }
-    return render(request, 'todo/index.html', context)
+    return redirect("/todo/")
 
-def createitem(request):
+def createitem(request,list_id=None):
     if request.method == "GET":
         lists = TodoList.objects.all()
         context = {
         'todolists': lists,
+        'listid':list_id
         }
         return render(request, 'todo/createitem.html',context)
 
@@ -119,12 +120,7 @@ def createitem(request):
 
     due_date=datetime.datetime.combine(duedate,duetime)
 
-
-    print(due_date)
-    if(due_date!=''):
-        TodoItem.objects.create(title=todoitem,checked=check,due_date=due_date,todo_list=t)
-    else:
-        TodoItem.objects.create(title=todoitem,checked=check,todo_list=t)
+    TodoItem.objects.create(title=todoitem,checked=check,due_date=due_date,todo_list=t)
 
     for obj in TodoItem.objects.filter(title=todoitem):
         print(obj.due_date)
@@ -135,7 +131,7 @@ def createitem(request):
         'todolist': t,
         'items_list':items_list,
     }
-    return render(request, 'todo/detail.html', context)
+    return redirect("/todo/"+str(todo_list))
 
 def item(request,list_id,item_id):
     if request.method == "GET":
@@ -195,4 +191,4 @@ def item(request,list_id,item_id):
         'todolist': t,
         'items_list':items_list,
     }
-    return render(request, 'todo/detail.html', context)
+    return redirect("/todo/"+str(list_id))

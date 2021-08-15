@@ -12,4 +12,5 @@ urlpatterns = [
     path('createlist/', createlist, name='list_create'),
     path('createitem/', createitem, name='item_create'),
     path('<int:list_id>/<int:item_id>/',item,name='item_details'),
+    path('<int:list_id>/createitem/',createitem,name='item_create')
 ]

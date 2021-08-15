@@ -15,7 +15,15 @@
             Date: <input type="date" name="date" id="date"><br><br>
             Todo List: <select name="todolist" id="todolist">
                 {% for todolist in todolists %}
+                    {% if listid == None %}
                     <option value={{todolist.id}}>{{todolist}}</option>
+                    {% else %}
+                        {% if listid == todolist.id %}
+                        <option value={{todolist.id}} selected>{{todolist}}</option>
+                        {% else %}
+                        <option value={{todolist.id}}>{{todolist}}</option>
+                        {% endif %}
+                    {% endif %}
                 {% endfor %}
             </select>
 
