@@ -19,8 +19,13 @@
                 <br>
             
                 <tr>
-                    <a href="/todo/{{todolist.id}}/{{item.id}}/">{{item.title}}</a>
-                    :{{item.due_date}},{{item.checked}}
+                    {% if item.checked == True %}
+                        <a href="/todo/{{todolist.id}}/{{item.id}}/">{{item.title}}</a>
+                        &nbsp:&nbspChecked,&nbsp{{item.due_date}}
+                    {% else %}
+                        <a href="/todo/{{todolist.id}}/{{item.id}}/">{{item.title}}</a>
+                        &nbsp:&nbspNot&nbspChecked,&nbsp{{item.due_date}}
+                    {% endif %}
                 </tr>
             
                 {% endfor %}

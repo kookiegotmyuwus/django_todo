@@ -101,20 +101,23 @@ def createitem(request):
     todo_list = int(request.POST["todolist"])
     todoitem=request.POST["item"]
     check=bool(request.POST.get("check",False))
-    print(check)
     t=TodoList.objects.get(id=todo_list)
+
     time=request.POST.get("time")
     date=request.POST.get("date")
     if(time!=''):
         duetime=datetime.datetime.strptime(time,'%H:%M').time()
+    else:
+        duetime=datetime.datetime.now().strftime('%H:%M')
+        duetime=datetime.datetime.strptime(duetime,'%H:%M').time()
 
     if(date!=''):
         duedate=datetime.datetime.strptime(date,'%Y-%m-%d').date()
-
-    if(date=='' and time==''):
-        due_date=''
     else:
-        due_date=datetime.datetime.combine(duedate,duetime)
+        duedate=datetime.datetime.now().strftime('%Y-%m-%d')
+        duedate=datetime.datetime.strptime(duedate,'%Y-%m-%d').date()
+
+    due_date=datetime.datetime.combine(duedate,duetime)
 
 
     print(due_date)
