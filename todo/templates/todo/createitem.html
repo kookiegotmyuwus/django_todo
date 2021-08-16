@@ -20,8 +20,6 @@
                     {% else %}
                         {% if listid == todolist.id %}
                         <option value={{todolist.id}} selected>{{todolist}}</option>
-                        {% else %}
-                        <option value={{todolist.id}}>{{todolist}}</option>
                         {% endif %}
                     {% endif %}
                 {% endfor %}

@@ -1,5 +1,6 @@
 from django.db import models
 import datetime
+from django.db.utils import IntegrityError
 import pytz
 from django.utils.timezone import now
 
@@ -17,7 +18,7 @@ Item - what task it is.
 # table
 class TodoList(models.Model):
  
-    list_name = models.CharField(max_length=100, unique=True)
+    list_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
 
     def __str__(self):
         return f"{self.list_name}"
